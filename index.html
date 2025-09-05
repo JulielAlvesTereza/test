@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTER SALAS - CIDÁLIA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #4facfe;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .responses-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .responses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .responses-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .clear-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+        }
+
+        .response-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .response-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .response-info {
+            font-weight: 600;
+            color: #4facfe;
+        }
+
+        .response-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .response-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: #555;
+            margin-top: 4px;
+        }
+
+        .no-responses {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>INTER SALAS - CIDÁLIA</h1>
+            <p>Este formulário está coletando automaticamente as informações dos participantes</p>
+        </div>
+
+        <div class="form-container">
+            <form id="interSalasForm">
+                <div class="form-group">
+                    <label for="nomeEstudante">NOME DO ESTUDANTE <span class="required">*</span></label>
+                    <input type="text" id="nomeEstudante" name="nomeEstudante" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="turma">TURMAS <span class="required">*</span></label>
+                    <select id="turma" name="turma" required>
+                        <option value="">Selecione sua turma</option>
+                        <option value="8° A">8° A</option>
+                        <option value="8° B">8° B</option>
+                        <option value="8° C">8° C</option>
+                        <option value="8° D">8° D</option>
+                        <option value="8° E">8° E</option>
+                        <option value="8° F">8° F</option>
+                        <option value="8° G">8° G</option>
+                        <option value="8° H">8° H</option>
+                        <option value="8° I">8° I</option>
+                        <option value="9° A">9° A</option>
+                        <option value="9° B">9° B</option>
+                        <option value="9° C">9° C</option>
+                        <option value="9° D">9° D</option>
+                        <option value="9° E">9° E</option>
+                        <option value="9° F">9° F</option>
+                        <option value="1° A">1° A</option>
+                        <option value="1° B">1° B</option>
+                        <option value="1° C">1° C</option>
+                        <option value="1° F">1° F</option>
+                        <option value="1° A Técnico">1° A Técnico</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataParticipacao">DATA DE PARTICIPAÇÃO <span class="required">*</span></label>
+                    <input type="date" id="dataParticipacao" name="dataParticipacao" required>
+                </div>
+
+                <div class="form-group">
+                    <label>MODALIDADES ESPORTIVAS</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="futsalFem" name="modalidades" value="Futsal Feminino">
+                            <label for="futsalFem">Futsal Feminino</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="futsalMasc" name="modalidades" value="Futsal Masculino">
+                            <label for="futsalMasc">Futsal Masculino</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="x2" name="modalidades" value="X2">
+                            <label for="x2">X2</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="voleibol" name="modalidades" value="Voleibol Misto">
+                            <label for="voleibol">Voleibol Misto</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="queimada" name="modalidades" value="Queimada Misto">
+                            <label for="queimada">Queimada Misto</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tenisMesa" name="modalidades" value="Tênis de Mesa">
+                            <label for="tenisMesa">Tênis de Mesa</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="futmesa" name="modalidades" value="Futmesa">
+                            <label for="futmesa">Futmesa</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="gameShow" name="modalidades" value="Game Show (individual ou em grupo)">
+                            <label for="gameShow">Game Show (individual ou em grupo)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="xadrez" name="modalidades" value="Xadrez">
+                            <label for="xadrez">Xadrez</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>EXTRA PARTICIPAÇÃO</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="narracao" name="extraParticipacao" value="Narração e Comentarista">
+                            <label for="narracao">Narração e Comentarista</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="transmissao" name="extraParticipacao" value="Transmissão">
+                            <label for="transmissao">Transmissão</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="coleta" name="extraParticipacao" value="Coleta de dados para análise estatística">
+                            <label for="coleta">Coleta de dados para análise estatística</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="apps" name="extraParticipacao" value="Desenvolvimento de App's">
+                            <label for="apps">Desenvolvimento de App's</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="robotica" name="extraParticipacao" value="Robótica (projeto para a atividade)">
+                            <label for="robotica">Robótica (projeto para a atividade)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="organizacao" name="extraParticipacao" value="Organização">
+                            <label for="organizacao">Organização</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="arbitros" name="extraParticipacao" value="Árbitros dos jogos">
+                            <label for="arbitros">Árbitros dos jogos</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="nenhum" name="extraParticipacao" value="Nenhum">
+                            <label for="nenhum">Nenhum</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar Formulário</button>
+            </form>
+
+            <div class="responses-section">
+                <div class="responses-header">
+                    <h2>Respostas Recebidas</h2>
+                    <button type="button" class="clear-btn" onclick="clearAllResponses()">Limpar Todas</button>
+                </div>
+                <div id="responsesContainer">
+                    <div class="no-responses">
+                        Nenhuma resposta ainda. As respostas aparecerão aqui após o envio do formulário.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let responses = [];
+
+        // Definir data atual como padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dataParticipacao').value = today;
+            displayResponses();
+        });
+
+        document.getElementById('interSalasForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            // Coletar dados do formulário
+            const response = {
+                id: Date.now(),
+                timestamp: new Date().toLocaleString('pt-BR'),
+                nome: formData.get('nomeEstudante'),
+                turma: formData.get('turma'),
+                data: formData.get('dataParticipacao'),
+                modalidades: formData.getAll('modalidades'),
+                extraParticipacao: formData.getAll('extraParticipacao')
+            };
+            
+            // Adicionar à lista de respostas
+            responses.unshift(response);
+            
+            // Exibir as respostas
+            displayResponses();
+            
+            // Limpar formulário
+            this.reset();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dataParticipacao').value = today;
+            
+            // Feedback visual
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviado com sucesso!';
+            submitBtn.style.background = '#27ae60';
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = '';
+            }, 2000);
+        });
+
+        function displayResponses() {
+            const container = document.getElementById('responsesContainer');
+            
+            if (responses.length === 0) {
+                container.innerHTML = '<div class="no-responses">Nenhuma resposta ainda. As respostas aparecerão aqui após o envio do formulário.</div>';
+                return;
+            }
+            
+            let html = '';
+            responses.forEach(response => {
+                html += `
+                    <div class="response-card">
+                        <div class="response-header">
+                            <div class="response-info">${response.nome} - ${response.turma}</div>
+                            <div class="response-date">${response.timestamp}</div>
+                        </div>
+                        <div class="response-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Data de Participação:</div>
+                                <div class="detail-value">${new Date(response.data).toLocaleDateString('pt-BR')}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Modalidades Esportivas:</div>
+                                <div class="detail-value">${response.modalidades.length > 0 ? response.modalidades.join(', ') : 'Nenhuma selecionada'}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Extra Participação:</div>
+                                <div class="detail-value">${response.extraParticipacao.length > 0 ? response.extraParticipacao.join(', ') : 'Nenhuma selecionada'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function clearAllResponses() {
+            if (responses.length === 0) return;
+            
+            if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+                responses = [];
+                saveResponses();
+                displayResponses();
+            }
+        }
+
+        // Lógica para o checkbox "Nenhum" na seção Extra Participação
+        document.getElementById('nenhum').addEventListener('change', function() {
+            const extraCheckboxes = document.querySelectorAll('input[name="extraParticipacao"]:not(#nenhum)');
+            
+            if (this.checked) {
+                extraCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.disabled = true;
+                });
+            } else {
+                extraCheckboxes.forEach(checkbox => {
+                    checkbox.disabled = false;
+                });
+            }
+        });
+
+        // Se qualquer outro checkbox de Extra Participação for marcado, desmarcar "Nenhum"
+        document.querySelectorAll('input[name="extraParticipacao"]:not(#nenhum)').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('nenhum').checked = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
